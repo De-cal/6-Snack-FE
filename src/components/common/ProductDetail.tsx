@@ -12,7 +12,6 @@ import CartAndLikeButtons from "./ProductDetail/CartAndLikeButtons";
 import ProductInfoSections from "./ProductDetail/ProductInfoSections";
 import { useAuth } from "@/providers/AuthProvider";
 import { useCurrentSubCategory } from "@/hooks/useCurrentSubCategory";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type ProductDetailProps = {
   productId: number;
@@ -23,22 +22,8 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
   const { data: product, isLoading, isError } = useProductDetail(productId);
   const { user } = useAuth();
   const router = useRouter();
-  const { findCategoryPath } = useCurrentSubCategory();
-  const queryClient = useQueryClient();
 
-  const { mutate: mutateAddToCart } = useMutation({
-    mutationFn: () => {
-      if (!product) throw new Error("상품 정보가 없습니다.");
-      return addToCart(product.id, selectedQuantity);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-      router.push("/cart");
-    },
-    onError: () => {
-      alert("장바구니 추가 실패");
-    },
-  });
+  const { findCategoryPath } = useCurrentSubCategory();
 
   useEffect(() => {
     if (product?.category?.id) {
@@ -49,19 +34,24 @@ export default function ProductDetail({ productId }: ProductDetailProps) {
   if (isLoading) return <p>로딩 중...</p>;
   if (isError || !product) return <p>상품 정보를 불러올 수 없습니다.</p>;
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (selectedQuantity < 1) {
       alert("상품의 수량을 1개 이상 선택해주세요.");
       return;
     }
 
-    mutateAddToCart();
+    try {
+      await addToCart(product.id, selectedQuantity);
+      router.push("/cart");
+    } catch (error) {
+      console.error("장바구니 추가 실패:", error);
+    }
   };
 
   const canEdit = user?.id === product.creatorId || user?.role === "ADMIN" || user?.role === "SUPER_ADMIN";
 
   return (
-    <div className="w-full flex flex-col justify-center items-center sm:max-w-[1180px]">
+    <div className="w-full flex flex-col justify-center items-center px-6 sm:px-0 sm:max-w-[1180px]">
       <div className="w-full flex flex-col justify-center items-start gap-7.5">
         <CategoryNavigation
           parentCategory={product.category.parent?.name ?? "기타"}

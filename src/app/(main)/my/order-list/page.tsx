@@ -41,14 +41,14 @@ export default function MyOrderListPage() {
     }
   })();
 
-  const getProductName = (receipts: TOrderItem["receipts"]) => {
-    if (!receipts.length) return "상품 없음";
+  const getProductName = (orderedItems: TOrderItem["orderedItems"]) => {
+    if (!orderedItems.length) return "상품 없음";
 
-    if (receipts.length === 1) {
-      return receipts[0].productName;
+    if (orderedItems.length === 1) {
+      return orderedItems[0].receipt.productName;
     }
 
-    return `${receipts[0].productName} 외 ${receipts.length - 1}건`;
+    return `${orderedItems[0].receipt.productName} 외 ${orderedItems.length - 1}건`;
   };
 
   const paginated = sorted.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
@@ -74,7 +74,7 @@ export default function MyOrderListPage() {
             <MyRequestList
               key={item.id}
               requestDate={formatDate(item.createdAt)}
-              productName={getProductName(item.receipts)}
+              productName={getProductName(item.orderedItems)}
               price={item.totalPrice}
               status={convertStatus(item.status)}
               onRequestCancel={() => console.log("취소", item.id)}
