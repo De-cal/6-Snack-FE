@@ -14,6 +14,11 @@ import { useAuth } from "@/providers/AuthProvider";
 import { useCurrentSubCategory } from "@/hooks/useCurrentSubCategory";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+/**
+ * @JJOBO
+ * 1. 타입 앞에 T
+ */
+
 type ProductDetailProps = {
   productId: number;
 };

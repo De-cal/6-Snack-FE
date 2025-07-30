@@ -1,5 +1,9 @@
 import React, { FC, useRef } from "react";
 import XIconSvg from "@/components/svg/XIconSvg";
+/**
+ * @rakaso598
+ * 1. export default function으로 변경
+ */
 
 type TConfirmationModalProps = {
   isOpen: boolean;
