@@ -5,6 +5,12 @@ import clsx from "clsx";
 import VisibilityOffIconSvg from "@/components/svg/VisibilityOffIconSvg";
 import VisibilityOnIconSvg from "@/components/svg/VisibilityOnIconSvg";
 
+/**
+ * @rakaso598
+ * 1. 타입 앞에 T
+ * 2. export 타입은 types 파일로 정의하기
+ */
+
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
   error?: string;
@@ -16,21 +22,19 @@ export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   inputRef?: React.Ref<HTMLInputElement>;
 };
 
-export default function Input(
-  {
-    label,
-    error,
-    type = "text",
-    showPasswordToggle = false,
-    containerClassName,
-    className,
-    value,
-    placeholder,
-    isCompanyName = false,
-    isBizNumber = false,
-    ...props
-  }: InputProps & { inputRef?: React.Ref<HTMLInputElement>; ref?: React.Ref<HTMLInputElement> }
-) {
+export default function Input({
+  label,
+  error,
+  type = "text",
+  showPasswordToggle = false,
+  containerClassName,
+  className,
+  value,
+  placeholder,
+  isCompanyName = false,
+  isBizNumber = false,
+  ...props
+}: InputProps & { inputRef?: React.Ref<HTMLInputElement>; ref?: React.Ref<HTMLInputElement> }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const [internalValue, setInternalValue] = useState<string>("");
 
@@ -49,13 +53,13 @@ export default function Input(
 
     // 회사명 입력 제한: 특수문자 제거, 20글자 제한
     if (isCompanyName) {
-      newValue = newValue.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]/g, '').slice(0, 20);
+      newValue = newValue.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]/g, "").slice(0, 20);
       e.target.value = newValue;
     }
 
     // 사업자번호 입력 제한: 숫자만 허용, 10자리까지만 입력
     if (isBizNumber) {
-      newValue = newValue.replace(/\D/g, '').slice(0, 10);
+      newValue = newValue.replace(/\D/g, "").slice(0, 10);
       e.target.value = newValue;
       if (!isControlled) {
         setInternalValue(newValue);
@@ -71,8 +75,7 @@ export default function Input(
   };
 
   // 패스워드 타입일 때 실제 input type 결정
-  const actualType = type === "password" && showPasswordToggle ?
-    (isPasswordVisible ? "text" : "password") : type;
+  const actualType = type === "password" && showPasswordToggle ? (isPasswordVisible ? "text" : "password") : type;
 
   return (
     <div className={clsx("flex flex-col w-full max-w-[480px] gap-[4px]", containerClassName)}>
@@ -98,14 +101,25 @@ export default function Input(
         )}
 
         {/* Input Field Container */}
-        <div className={clsx(
-          type === "password" && showPasswordToggle ? "flex justify-between items-end gap-[4px]" : "flex flex-col justify-center",
-          hasValue && type === "password" && showPasswordToggle ? "items-end" : type === "password" && showPasswordToggle ? "items-center" : ""
-        )}>
+        <div
+          className={clsx(
+            type === "password" && showPasswordToggle
+              ? "flex justify-between items-end gap-[4px]"
+              : "flex flex-col justify-center",
+            hasValue && type === "password" && showPasswordToggle
+              ? "items-end"
+              : type === "password" && showPasswordToggle
+                ? "items-center"
+                : "",
+          )}
+        >
           {/* Input */}
           <input
             {...props}
-            ref={props.inputRef ?? props.ref}
+            ref={
+              (props.inputRef ?? // explicit prop
+                (props as any).ref) as React.Ref<HTMLInputElement>
+            }
             type={actualType}
             value={inputValue}
             onChange={handleChange}
@@ -113,7 +127,7 @@ export default function Input(
             className={clsx(
               actualType === "password" && !isPasswordVisible ? "tracking-[0.25em]" : "tracking-tight",
               "z-10 w-full font-normal text-[16px]/[20px] text-primary-950 outline-none placeholder:font-normal placeholder:text-[16px]/[20px] placeholder:tracking-tight placeholder:text-primary-500",
-              className
+              className,
             )}
           />
 
@@ -133,11 +147,7 @@ export default function Input(
       </div>
 
       {/* Error Message */}
-      {error && (
-        <p className="font-normal text-[12px]/[15px] tracking-tight text-error-500">
-          {error}
-        </p>
-      )}
+      {error && <p className="font-normal text-[12px]/[15px] tracking-tight text-error-500">{error}</p>}
     </div>
   );
 }

@@ -3,6 +3,11 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+/**
+ * @Jam1eL1
+ * 1. 타입 앞에 T 붙이기
+ */
+
 type Product = {
   id: number;
   categoryId: number;

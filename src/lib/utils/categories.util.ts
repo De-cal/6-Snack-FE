@@ -1,3 +1,9 @@
+/**
+ * @Jam1eL1
+ * 1. 이런 목데이터 같은 느낌의 코드는 constants 파일로 분리되는 것이 좋다고 합니다.(GPT)
+ * 2. categoryStore.ts가 로직이 들어간 함수인거 같은데 그걸 util로 옮기는 것은 어떤가요?
+ */
+
 export const CATEGORIES = {
   parentCategory: [
     { id: 1, name: "스낵" },

@@ -1,4 +1,4 @@
-// 해당기능 사용하지 않아 주석처리함
+// 의논 후 상품 수정 기능은 현재로써는 사용하지 않기로 결정했습니다. 추후에 활용도를 생각해서 파일을 남겨두겠습니다.
 
 // import React, { useState, FC, FormEvent } from "react";
 // import Image from "next/image";

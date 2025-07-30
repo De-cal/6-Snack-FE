@@ -3,6 +3,12 @@ import { useBudgets } from "@/hooks/useBudgets";
 import { useAdminOrders } from "@/hooks/useAdminOrders";
 import { formatDate } from "@/lib/utils/formatDate.util";
 
+/**
+ * @rakaso598
+ * 1. 인터페이스 -> 타입
+ * 2. 앞에 T 붙이기
+ */
+
 export type TPurchaseItem = {
   id: string;
   requestDate: string;
@@ -37,7 +43,7 @@ export const useOrderHistory = (sortByDefault: string = "latest", itemsPerPage: 
 
   // 데이터 파싱 및 정렬
   const statusMap: Record<string, "요청" | "승인"> = { approved: "승인" };
-  
+
   interface OrderItem {
     id: number | string;
     requestDate?: string;
@@ -56,27 +62,20 @@ export const useOrderHistory = (sortByDefault: string = "latest", itemsPerPage: 
     manager?: string;
     adminMessage?: string;
   }
-  
+
   const parse = (item: OrderItem): TPurchaseItem => ({
     id: String(item.id),
-    requestDate: item.requestDate
-      ? formatDate(item.requestDate)
-      : item.createdAt
-        ? formatDate(item.createdAt)
-        : "-",
+    requestDate: item.requestDate ? formatDate(item.requestDate) : item.createdAt ? formatDate(item.createdAt) : "-",
     requester: item.requesterName || item.requester || "-",
     status: statusMap["approved"],
     item: item.productName || item.itemSummary || item.item || "-",
-    amount: typeof item.totalPrice === "number"
-      ? item.totalPrice.toLocaleString()
-      : typeof item.amount === "number"
-        ? item.amount.toLocaleString()
-        : "-",
-    approvalDate: item.approvalDate
-      ? formatDate(item.approvalDate)
-      : item.updatedAt
-        ? formatDate(item.updatedAt)
-        : "-",
+    amount:
+      typeof item.totalPrice === "number"
+        ? item.totalPrice.toLocaleString()
+        : typeof item.amount === "number"
+          ? item.amount.toLocaleString()
+          : "-",
+    approvalDate: item.approvalDate ? formatDate(item.approvalDate) : item.updatedAt ? formatDate(item.updatedAt) : "-",
     manager: item.approver || item.managerName || item.manager || "-",
     adminMessage: item.adminMessage,
   });
@@ -87,7 +86,7 @@ export const useOrderHistory = (sortByDefault: string = "latest", itemsPerPage: 
   // 클라이언트 사이드에서 정렬 처리
   const sortedItems = useCallback(() => {
     const items = [...allPurchaseItems];
-    
+
     switch (sortBy) {
       case "latest":
         return items.sort((a, b) => {
@@ -97,14 +96,14 @@ export const useOrderHistory = (sortByDefault: string = "latest", itemsPerPage: 
         });
       case "priceLow":
         return items.sort((a, b) => {
-          const priceA = parseFloat(a.amount.replace(/[^0-9]/g, '')) || 0;
-          const priceB = parseFloat(b.amount.replace(/[^0-9]/g, '')) || 0;
+          const priceA = parseFloat(a.amount.replace(/[^0-9]/g, "")) || 0;
+          const priceB = parseFloat(b.amount.replace(/[^0-9]/g, "")) || 0;
           return priceA - priceB; // 낮은 가격순 (오름차순)
         });
       case "priceHigh":
         return items.sort((a, b) => {
-          const priceA = parseFloat(a.amount.replace(/[^0-9]/g, '')) || 0;
-          const priceB = parseFloat(b.amount.replace(/[^0-9]/g, '')) || 0;
+          const priceA = parseFloat(a.amount.replace(/[^0-9]/g, "")) || 0;
+          const priceB = parseFloat(b.amount.replace(/[^0-9]/g, "")) || 0;
           return priceB - priceA; // 높은 가격순 (내림차순)
         });
       default:
@@ -125,11 +124,14 @@ export const useOrderHistory = (sortByDefault: string = "latest", itemsPerPage: 
     setCurrentPage(1);
   }, [sortBy]);
 
-  const handlePageChange = useCallback((page: number) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-  }, [totalPages]);
+  const handlePageChange = useCallback(
+    (page: number) => {
+      if (page > 0 && page <= totalPages) {
+        setCurrentPage(page);
+      }
+    },
+    [totalPages],
+  );
 
   // 드롭다운 외부 클릭 감지
   useEffect(() => {

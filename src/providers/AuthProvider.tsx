@@ -5,6 +5,12 @@ import { getUserApi } from "@/lib/api/user.api";
 import { loginApi, logoutApi, registerApi } from "@/lib/api/auth.api";
 import { usePathname } from "next/navigation";
 
+/**
+ * @rakaso598
+ * 1. 타입 앞에 T 붙이기
+ * 2. export 해서 사용하는 타입이라면 types 파일 만들어서 불러오기
+ */
+
 export type User = {
   id: string;
   name: string;

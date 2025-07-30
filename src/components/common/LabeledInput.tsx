@@ -1,6 +1,12 @@
 import React from "react";
 import clsx from "clsx";
 
+/**
+ * @rakaso598
+ * 1. 타입 앞에 T
+ * 2. rfc 스니펫 사용
+ */
+
 interface LabeledInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;

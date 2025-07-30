@@ -5,6 +5,12 @@ import DeleteAccountConfirmModal from "./DeleteAccountConfirmModal";
 import InviteMemberModal from "./InviteMemberModal";
 import MenuDropdown from "./MenuDropdown";
 
+/**
+ * @wooju01
+ * 1. rfc 스니펫 사용
+ * 2. onEdit 에러 해결
+ */
+
 type TMemberListProps = TMemberItem & {
   onClickDeleteUser?: (id: string) => void;
 };

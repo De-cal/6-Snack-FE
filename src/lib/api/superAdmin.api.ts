@@ -1,5 +1,10 @@
 import { cookieFetch } from "@/lib/api/fetchClient.api";
 
+/**
+ * @wooju01
+ * 1. return 에러 해결하기
+ */
+
 export const deleteUserById = async (userId: string): Promise<{ message: string }> => {
   const res = await cookieFetch(`/super-admin/users/${userId}`, {
     method: "DELETE",

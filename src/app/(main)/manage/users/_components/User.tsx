@@ -13,6 +13,13 @@ import { TMemberItem } from "@/types/meberList.types";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 
+/**
+ * @wooju01
+ * 1. useState에 타입 정의
+ * 2. useQuery, useMutation으로 마이그레이션
+ * 3. closeModal은 props로 내려주지 말고, 해당 컴포넌트에서 useModal불러와서 사용하는게 더 좋을 것 같습니다. 전역으로 관리하고 있기 때문에 props로 내려주게 되면 디메리트 되는 것 같아요
+ */
+
 export default function User() {
   const [currentPaginationPage, setCurrentPaginationPage] = useState(1);
   const { openModal, closeModal } = useModal();

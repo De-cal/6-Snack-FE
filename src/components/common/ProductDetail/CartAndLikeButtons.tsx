@@ -1,6 +1,11 @@
 import React from "react";
 import Button from "../../ui/Button";
 
+/**
+ * @JJOBO
+ * 1. 타입 정의 명시적으로 해주기
+ */
+
 type TProps = {
   productId: number;
   selectedQuantity: number;

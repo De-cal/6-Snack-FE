@@ -1,5 +1,10 @@
 import React, { FC } from "react";
 
+/**
+ * @rakaso598
+ * 1. export default function으로 변경
+ */
+
 type TConfirmationModalProps = {
   isOpen: boolean; // 모달을 열고 닫는 상태
   productName: string; // 삭제할 상품명

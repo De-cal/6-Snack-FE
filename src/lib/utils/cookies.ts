@@ -1,5 +1,10 @@
 import { cookies } from "next/headers";
 
+/**
+ * @rakaso598
+ * 1. cookie.util.ts로 파일명 변경
+ */
+
 // 쿠키에서 토큰 가져오는 함수 (클라이언트)
 export function getTokenFromCookie() {
   if (typeof window === "undefined") return null;

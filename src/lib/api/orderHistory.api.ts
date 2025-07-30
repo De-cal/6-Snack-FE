@@ -1,4 +1,9 @@
-import { cookieFetch } from './fetchClient.api';
+import { cookieFetch } from "./fetchClient.api";
+
+/**
+ * @xdnjs7
+ * 1. orderDetail.api.ts에서 주문 조회가 지수님이 만드신 코드와 중복으로 보여서 합의 후 통합 진행하기
+ */
 
 // Purchase History Type Definitions (실제 백엔드 응답에 맞춤)
 export type TProduct = {
@@ -48,7 +53,7 @@ export type TMyOrderDetail = {
   totalPrice: number;
   createdAt: string;
   updatedAt: string;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'CANCELED';
+  status: "PENDING" | "APPROVED" | "REJECTED" | "CANCELED";
   user: TUser;
   orderedItems: TOrderedItem[];
 };
@@ -66,7 +71,7 @@ export type TBudget = {
 export type TOrderHistory = {
   id: number;
   userId: string;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'CANCELED';
+  status: "PENDING" | "APPROVED" | "REJECTED" | "CANCELED";
   totalPrice: number;
   adminMessage?: string;
   requestMessage?: string;
@@ -94,17 +99,17 @@ export type TOrderHistoryListResponse = {
 export const getMyOrders = async (params?: {
   page?: number;
   sort?: string;
-  status?: 'pending' | 'approved' | 'rejected' | 'canceled';
+  status?: "pending" | "approved" | "rejected" | "canceled";
 }): Promise<TOrderHistory[]> => {
   try {
     const queryParams = new URLSearchParams();
-    if (params?.page) queryParams.append('page', params.page.toString());
-    if (params?.sort) queryParams.append('sort', params.sort);
-    if (params?.status) queryParams.append('status', params.status);
-    
+    if (params?.page) queryParams.append("page", params.page.toString());
+    if (params?.sort) queryParams.append("sort", params.sort);
+    if (params?.status) queryParams.append("status", params.status);
+
     const queryString = queryParams.toString();
-    const url = queryString ? `/admin/orders?${queryString}` : '/admin/orders';
-    
+    const url = queryString ? `/admin/orders?${queryString}` : "/admin/orders";
+
     return await cookieFetch(url);
   } catch (error) {
     throw error;
@@ -113,16 +118,16 @@ export const getMyOrders = async (params?: {
 
 // 관리자 - 주문 상세 조회
 export const getOrderDetail = async (
-  orderId: string, 
-  status?: 'pending' | 'approved' | 'rejected' | 'canceled'
+  orderId: string,
+  status?: "pending" | "approved" | "rejected" | "canceled",
 ): Promise<TOrderHistory> => {
   try {
     const queryParams = new URLSearchParams();
-    if (status) queryParams.append('status', status);
-    
+    if (status) queryParams.append("status", status);
+
     const queryString = queryParams.toString();
     const url = queryString ? `/admin/orders/${orderId}?${queryString}` : `/admin/orders/${orderId}`;
-    
+
     // 백엔드에서 직접 TOrderHistory 객체를 반환하므로 data 필드 접근 제거
     const response: TOrderHistory = await cookieFetch(url);
     return response;
@@ -145,12 +150,12 @@ export const getMyOrderDetail = async (orderId: string): Promise<TMyOrderDetail>
 export const cancelOrder = async (orderId: string): Promise<void> => {
   try {
     await cookieFetch(`/orders/${orderId}`, {
-      method: 'PATCH',
+      method: "PATCH",
       body: JSON.stringify({
-        status: 'CANCELED'
-      })
+        status: "CANCELED",
+      }),
     });
   } catch (error) {
     throw error;
   }
-}; 
+};

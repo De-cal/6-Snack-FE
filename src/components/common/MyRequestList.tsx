@@ -1,6 +1,11 @@
 import React from "react";
 import Badge from "@/components/ui/Badge";
 
+/**
+ * @JJOBO
+ * 1. rfc 스니펫 사용
+ */
+
 type TRequestListItemProps = {
   requestDate: string;
   productName: string;

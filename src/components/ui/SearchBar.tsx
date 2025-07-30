@@ -6,6 +6,11 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import IcSearch from "@/assets/icons/ic_search.svg";
 import { TSearchBarProps } from "@/types/serchBar.types";
 
+/**
+ * @wooju01
+ * 1. export default function으로 변경...
+ */
+
 function SearchBar({ placeholder = "이름으로 검색하세요", initialValue = "" }: TSearchBarProps) {
   const router = useRouter();
   const pathname = usePathname();

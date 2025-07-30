@@ -1,6 +1,11 @@
 import { StaticImageData } from "next/image";
 import React from "react";
 
+/**
+ * @wooju01
+ * 1. export default function으로 변경(아래에 export default 삭제)
+ */
+
 type TCardProps = {
   name: string;
   purchaseCount?: number;
@@ -23,9 +28,7 @@ function Card({ name, purchaseCount, price, imageUrl }: TCardProps) {
         <div className="flex flex-col md:flex-row justify-start md:items-center gap-2">
           <div className="text-stone-900 text-base md:text-lg font-normal font-suit">{name}</div>
           {purchaseCount !== undefined && (
-            <div className="text-blue-500 text-xs md:text-md font-bold font-suit">
-              {purchaseCount}회 구매
-            </div>
+            <div className="text-blue-500 text-xs md:text-md font-bold font-suit">{purchaseCount}회 구매</div>
           )}
         </div>
         <div className="text-stone-900 text-base md:text-lg font-extrabold font-suit">

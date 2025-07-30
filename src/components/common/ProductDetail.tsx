@@ -13,6 +13,11 @@ import ProductInfoSections from "./ProductDetail/ProductInfoSections";
 import { useAuth } from "@/providers/AuthProvider";
 import { useCurrentSubCategory } from "@/hooks/useCurrentSubCategory";
 
+/**
+ * @JJOBO
+ * 1. 타입 앞에 T
+ */
+
 type ProductDetailProps = {
   productId: number;
 };

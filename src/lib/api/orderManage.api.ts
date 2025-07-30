@@ -1,6 +1,11 @@
 import { TOrder, TOrderSummary } from "@/types/order.types";
 import { cookieFetch } from "./fetchClient.api";
 
+/**
+ * @wooju01
+ * 1. orderHistory.api.ts에서 원빈님이 만드신 코드와 동일한 코드로 보여서 합의 후 통합 진행하기
+ */
+
 export const fetchPendingOrders = async ({
   offset = 0,
   limit = 10,

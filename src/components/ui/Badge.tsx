@@ -6,6 +6,11 @@ import IcPending from "@/assets/icons/ic_time.svg";
 import { TBadgeProps, TBadgeType } from "@/types/Badge.types";
 import CheckIconSvg from "@/components/svg/CheckIconSvg";
 
+/**
+ * @wooju01
+ * 1. export default function으로 변경
+ */
+
 const badgeStyleMap: Record<
   TBadgeType,
   {

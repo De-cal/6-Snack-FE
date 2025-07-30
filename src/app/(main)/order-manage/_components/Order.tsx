@@ -9,6 +9,12 @@ import { useModal } from "@/providers/ModalProvider";
 import { TOrderSummary } from "@/types/order.types";
 import { useEffect, useMemo, useState } from "react";
 
+/**
+ * @wooju01
+ * 1. useState에 타입 정의
+ * 2. useQuery, useMutation으로 마이그레이션
+ */
+
 export default function Order() {
   const [currentPaginationPage, setCurrentPaginationPage] = useState(1);
   const { openModal } = useModal();

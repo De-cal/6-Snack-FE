@@ -7,6 +7,11 @@ import { twMerge } from "tailwind-merge";
 import ChevronUpIcon from "@/assets/icons/ic_chevron_up.svg";
 import ChevronDownIcon from "@/assets/icons/ic_chevron_down.svg";
 
+/**
+ * @JJOBO
+ * 1. export default function으로 변경
+ */
+
 type TDropdownProps = {
   options?: string[];
   placeholder?: string;

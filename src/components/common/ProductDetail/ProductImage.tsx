@@ -1,6 +1,11 @@
 import React from "react";
 import Image from "next/image";
 
+/**
+ * @JJOBO
+ * 1. 타입 정의 명시적으로 해주기
+ */
+
 type TProps = {
   imageUrl: string;
 };

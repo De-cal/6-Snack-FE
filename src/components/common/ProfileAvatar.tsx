@@ -1,5 +1,11 @@
 import React from "react";
 
+/**
+ * @Jam1eL1
+ * 1. 인터페이스 -> 타입
+ * 2. 타입 앞에 T
+ */
+
 interface ProfileAvatarProps {
   label: string;
   className?: string;
