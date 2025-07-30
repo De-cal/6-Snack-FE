@@ -3,6 +3,7 @@ export type Product = {
   name: string;
   price: number;
   imageUrl: string;
+  cumulativeSales: number;
   category: {
     id: number;
     name: string;
@@ -13,8 +14,3 @@ export type Product = {
   };
   creatorId: string;
 };
-
-/**
- * @JJOBO
- * 1. 앞에 T 붙이기
- */

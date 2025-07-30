@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import ProductDetail from "@/components/common/ProductDetail";
 import { CATEGORIES } from "@/lib/utils/categories.util";
 import SubCategoryItem from "@/components/common/SubCategoryItem";
+import SubCategoryTabs from "@/app/(main)/products/_components/SubCategoryTabs";
 import { useCategoryStore } from "@/stores/categoryStore";
 import { useProductDetail } from "@/hooks/useProductDetail";
 
@@ -22,11 +23,15 @@ export default function ProductDetailPage() {
   }, [product?.category?.id, findCategoryPath]);
 
   if (!productId || isNaN(productId)) {
-    return <div className="px-6 py-10">잘못된 접근입니다.</div>;
+    return <div className="py-10">잘못된 접근입니다.</div>;
   }
 
   return (
-    <div className="w-full flex gap-6 px-6 py-10">
+    <div className="w-full flex flex-col mt-4 sm:flex-row sm:pt-0 gap-6">
+      <div className="block sm:hidden">
+        <SubCategoryTabs />
+      </div>
+
       <div className="hidden sm:block w-[180px] shrink-0">
         <SubCategoryItem categories={CATEGORIES} useExternalState />
       </div>
