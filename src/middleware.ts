@@ -1,18 +1,11 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// base64url 디코딩 함수
-function base64UrlDecode(str: string): string {
-  str = str.replace(/-/g, "+").replace(/_/g, "/");
-  while (str.length % 4) str += "=";
-  return Buffer.from(str, "base64").toString("utf8");
-}
-
 // JWT 토큰에서 사용자 역할 추출하는 함수
 function getUserRoleFromToken(token: string): string | null {
   try {
     // JWT의 payload 부분 디코딩 (base64url 디코딩)
-    const payload = JSON.parse(base64UrlDecode(token.split(".")[1]));
+    const payload = JSON.parse(atob(token.split(".")[1]));
     return payload.role || null;
   } catch {
     return null;
